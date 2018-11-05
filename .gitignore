@@ -3,3 +3,5 @@
 application.properties
 RemoteSystemsTempFiles
 RemoteSystemsTempFiles/*
+.recommenders
+.recommenders/*

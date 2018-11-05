@@ -10,7 +10,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer>{
 
 	List<Customer> findByState(String state);
 	
-	 @Query("SELECT a.id, a.c_first_name, a.c_last_name, a.c_city, a.c_state, a.c_zip FROM Customer a WHERE a.c_state=:state")
+	 @Query("SELECT a.id, a.c_first_name, a.c_last_name, a.c_city, a.state, a.c_zip FROM Customer a WHERE a.state=:state")
 	 List<Customer> fetchCustomers(@Param("state") String state);
 	
 }

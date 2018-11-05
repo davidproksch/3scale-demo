@@ -37,7 +37,7 @@ public class CustomerController {
 	@GetMapping("/{id}")
     public Customer get(@PathVariable("id") Integer id) {
         verifyCustomerExists(id);
-
+        System.err.println(repository.findOne(id).toString());
         return repository.findOne(id);
     }
 

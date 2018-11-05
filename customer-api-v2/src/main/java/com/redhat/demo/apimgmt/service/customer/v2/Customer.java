@@ -5,11 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "customer_v2")
 public class Customer {
 
 	@Id
@@ -22,7 +24,7 @@ public class Customer {
 	@Getter @Setter private String  c_last_name;
 	@Getter @Setter private String  c_street;
 	@Getter @Setter private String  c_city;
-	@Column(name="c_state")
+	
 	@Getter @Setter private String  state;
 	@Getter @Setter private String  c_zip;
 	

@@ -51,10 +51,10 @@ public class CustomerController {
                 .collect(Collectors.toList());
     }
     
-    @GetMapping("/state/{c_state}")
-    public List<Customer> get(@PathVariable("c_state") String c_state) {
+    @GetMapping("/state/{state}")
+    public List<Customer> get(@PathVariable("state") String state) {
         //verifyCustomerExists(id);
-    	Spliterator<Customer> customers = repository.findByState(c_state)
+    	Spliterator<Customer> customers = repository.findByState(state)
                 .spliterator();
     	
     	return StreamSupport

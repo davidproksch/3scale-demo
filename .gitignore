@@ -1,3 +1,5 @@
 .env
 /.metadata/
 application.properties
+RemoteSystemsTempFiles
+RemoteSystemsTempFiles/*

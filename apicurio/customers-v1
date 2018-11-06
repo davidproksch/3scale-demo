@@ -18,7 +18,33 @@
     "description" : "Server definition for V1 APIS for customer lookup"
   } ],
   "paths" : {
-    "/api/v1/customer/" : { },
+    "/api/v1/customer/" : {
+      "summary" : "Get a list of customers",
+      "get" : {
+        "summary" : "Get all customers",
+        "description" : "Get all Customers",
+        "responses" : {
+          "200" : {
+            "description" : "Customer List found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/customer"
+                }
+              }
+            }
+          }
+        },
+        "servers" : [ {
+          "url" : "http://customer-api-v1-ph-demo.6923.rh-us-east-1.openshiftapps.com /api/customer",
+          "description" : ""
+        } ]
+      },
+      "servers" : [ {
+        "url" : "http://customer-api-v1-ph-demo.6923.rh-us-east-1.openshiftapps.com /api/customer",
+        "description" : "Query all customers"
+      } ]
+    },
     "/api/v1/customer/{id}" : {
       "summary" : "Query customer by Customer ID",
       "get" : {
@@ -33,6 +59,12 @@
                   "$ref" : "#/components/schemas/customer"
                 }
               }
+            }
+          },
+          "404" : {
+            "description" : "No customer was found with this ID",
+            "content" : {
+              "application/json" : { }
             }
           }
         }

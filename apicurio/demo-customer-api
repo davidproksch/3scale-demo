@@ -1,0 +1,73 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "CustomerDemo",
+    "description" : "Demo Customer API",
+    "version" : "1.0.0"
+  },
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/api/v3/customer" : {
+      "get" : {
+        "tags" : [ "customer", "ve3" ],
+        "summary" : "My cool summary",
+        "description" : "My really special description",
+        "responses" : {
+          "200" : {
+            "description" : "Everything is A-OK!",
+            "schema" : {
+              "$ref" : "#/definitions/DemoCustomerType"
+            }
+          },
+          "401" : {
+            "description" : "No one is welcome here!"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "DemoCustomerType" : {
+      "title" : "Root Type for DemoCustomerType",
+      "description" : "Demo customer type",
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "format" : "int32",
+          "type" : "integer"
+        },
+        "c_id" : {
+          "format" : "int32",
+          "type" : "integer"
+        },
+        "c_d_id" : {
+          "format" : "int32",
+          "type" : "integer"
+        },
+        "c_w_id" : {
+          "format" : "int32",
+          "type" : "integer"
+        },
+        "c_first_name" : {
+          "type" : "string"
+        },
+        "c_last_name" : {
+          "type" : "string"
+        },
+        "c_street" : {
+          "type" : "string"
+        },
+        "c_city" : {
+          "type" : "string"
+        },
+        "state" : {
+          "type" : "string"
+        },
+        "c_zip" : {
+          "type" : "string"
+        }
+      },
+      "example" : "{\"id\":1,\"c_id\":1,\"c_d_id\":1,\"c_w_id\":1,\"c_first_name\":\"Stephen\",\"c_last_name\":\"Hopkins\",\"c_street\":\"751 Castillo Lake Apt. 754\",\"c_city\":\"Hillchester\",\"state\":\"MI\",\"c_zip\":\"54985\"}\n\n"
+    }
+  }
+}

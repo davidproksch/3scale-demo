@@ -1,6 +1,7 @@
 .env
 /.metadata/
 application.properties
+application-default.properties
 RemoteSystemsTempFiles
 RemoteSystemsTempFiles/*
 .recommenders

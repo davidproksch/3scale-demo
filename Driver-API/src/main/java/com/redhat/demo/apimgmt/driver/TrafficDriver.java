@@ -40,23 +40,42 @@ public class TrafficDriver {
 		s.forEach(i -> {
 			System.err.println(i);
 			double d = random.nextDouble();
-			//System.err.println(d);
-			//System.err.println(a.getKeyLookupPercent());
+			
+			/*
+			 * I am a key lookup or a list
+			 */
 			if ( d < a.getKeyLookupPercent()) {
-				//System.err.println("single");
 				driveTraffic();
 			}
 			else {
-				//System.err.println("list");
 				driveListTraffic();
 			}
+			/*
+			 * Whew ... that was hard, nap time!s
+			 */
 			goToSleep();
 		});
 	}
 	
+	/*
+	 * Take a nap to either simulate think time between either
+	 * - browser requests
+	 * - integration requests
+	 * - prevent accessing the API too many times, as is the case with
+	 *   the "freemium" version of AWS or 3scale
+	 */
 	private void goToSleep() {
+		/*
+		 * @ToDo:  
+		 * 1. Fetch the sleepytime upper bounds from the 
+		 * properties file.
+		 * 2. Change the properties file to either reflect microseconds or
+		 * convert the seconds to microseconds.
+		 * 
+		 * The +5 in the equation is to make sure the minimum sleep time
+		 * is always at least 5 seconds.
+		 */
 		int sleepyTime = (getRandom().nextInt(30)+5)*1000;
-		//System.err.println("Sleeping ..." + sleepyTime);
 		try {
 			Thread.sleep(sleepyTime);
 		} catch (InterruptedException e) {
@@ -65,15 +84,30 @@ public class TrafficDriver {
 		}
 		
 	}
+	
+	/*
+	 * Simulate versioning of the API.  This is used in the demo to simulate
+	 * monitoring the adaptation of V2 compared to V1.  Different metrics
+	 * can be applied, i.e., rate limits, higher costs, etc. to encourage
+	 * the adaption of the next version of the API.  
+	 * 
+	 * Carror or stick?
+	 */
 	private String whichVersion(double d) {
 		String version = "v2";
 		if (d < (a.getAppVersionV1() / 100.00)) {
 			version = "v1";
 		}
-		//System.err.println(version);
 		return version;
 	}
 	
+	/*
+	 * Fetch one record via the key lookup of the customer API.
+	 * 
+	 * Since nothing is really done with the results, ignore any excpetions
+	 * thrown
+	 * 
+	 */
 	private void callAPI(String url) {
 		try {
 			ResponseEntity<Customer> response
@@ -83,11 +117,23 @@ public class TrafficDriver {
 			System.err.println("Error received.");
 		}
 	}
+	
+	/*
+	 * Fetch a listing of customers.
+	 * 
+	 * Since nothing is really done with the results, ignore any excpetions
+	 * thrown
+	 */
 	private void callListAPI(String url) {
-		ResponseEntity<List<Customer>> response = this.getRestTemplate().exchange(
-				url, HttpMethod.GET, null,
-				new ParameterizedTypeReference<List<Customer>>(){});
-		List<Customer> customers = response.getBody();
+		try {
+			ResponseEntity<List<Customer>> response = this.getRestTemplate().exchange(
+					url, HttpMethod.GET, null,
+					new ParameterizedTypeReference<List<Customer>>(){});
+			List<Customer> customers = response.getBody();
+		}
+		catch (Exception e) {
+			System.err.println("Error received.");
+		}
 		
 	}
 	
@@ -126,14 +172,6 @@ public class TrafficDriver {
 			.append(a.getAppUserKey().trim());
 		
 		callListAPI(url.toString());
-		
-		/*
-		ResponseEntity<List<Customer>> response = restTemplate.exchange(
-				url, HttpMethod.GET, null,
-				new ParameterizedTypeReference<List<Customer>>(){});
-		List<Customer> customers = response.getBody();
-		System.err.println(customers.size());
-		*/
 		
 	}
 }

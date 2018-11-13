@@ -1,18 +1,11 @@
 package com.redhat.demo.apimgmt.service.customer.v1;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.redhat.demo.apimgmt.exception.NotFoundException;
-import com.redhat.demo.apimgmt.exception.UnprocessableEntityException;
 import com.redhat.demo.apimgmt.exception.UnsupportedMediaTypeException;
 import com.redhat.demo.apimgmt.service.customer.v1.CustomerRepository;
 import com.redhat.demo.apimgmt.service.customer.v1.Customer;
@@ -33,7 +26,13 @@ public class CustomerController {
         this.repository = repository;
     }
 	
-	
+	/*
+	 * endpoint for searching for a customer based upon their Customer ID
+	 * 
+	 * Customer ID is an interger - 1..1270, based upon the current dataset
+	 * loaded into the database.
+	 * 
+	 */
 	@GetMapping("/{id}")
     public Customer get(@PathVariable("id") Integer id) {
         verifyCustomerExists(id);
@@ -41,6 +40,11 @@ public class CustomerController {
         return repository.findOne(id);
     }
 
+	/*
+	 * endpont for returning all the customers in the database.  There
+	 * is no order to the list return.  This is mainly to just drive traffice and 
+	 * load on the system.
+	 */
     @GetMapping
     public List<Customer> getAll() {
         Spliterator<Customer> customers = repository.findAll()
